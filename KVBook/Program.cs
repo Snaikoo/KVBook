@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace KVBook
 {
@@ -27,6 +29,12 @@ namespace KVBook
                 i.Price = Convert.ToInt32(Console.ReadLine());
             }
         }
+        static public void Sort()
+        { 
+            BookShop.OrderBy(r => r.Price).ThenBy(r => r.Author).ToArray();
+        }
+
+    
     }
     class Program
     {
