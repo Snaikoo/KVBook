@@ -19,15 +19,24 @@ namespace KVBook
         static public void Booking()
         {
             Console.Write("Размер массива = ");
-            Size = Convert.ToInt32(Console.ReadLine());     
+            string tS = Console.ReadLine();
+            bool hasLetters;
+            do
+            {
+                hasLetters = tS.AsEnumerable().Any(ch => char.IsLetter(ch));
+                tS = tS.Replace(" ", "");
+            }
+            while (hasLetters || tS == null);
+                    
+                        
+            Size = Convert.ToInt32(tS);
             for (int i = 0; i < Size; i++)
             {
-                Book TempBook = new Book();
-                Console.Write("Название книги №" + i + " = ");
+                Book TempBook = new Book();                
+                Console.Write("Название книги №" + i + " = ");                
                 TempBook.Name = Console.ReadLine().ToString();
                 Console.Write("Автор книги №" + i + " = ");
-                TempBook.Author = Console.ReadLine().ToString();
-                bool hasLetters;
+                TempBook.Author = Console.ReadLine().ToString();                
                 do
                 {
                     Console.Write("Цена книги №" + i + " = ");
@@ -46,7 +55,7 @@ namespace KVBook
         }
         static public void Sort()
         { 
-            BookShop.OrderBy(r => r.Price).ThenBy(r => r.Author).ToArray();
+            BookShop = BookShop.OrderBy(r => r.Price).ThenBy(r => r.Author).ToList();
         }
         static public void SaveInFile()
         {
