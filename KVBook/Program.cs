@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.IO;
 
 namespace KVBook
 {
@@ -36,10 +37,10 @@ namespace KVBook
                         TempBook.Price = Convert.ToInt32(t);
                     else
                     {
-                        Console.Write("Цена не должна содержать буквы. Только цифры. Повторите ввод ценя для книги №" + i + " = ");
+                        Console.Write("Цена не должна содержать буквы. Только цифры. Повторите ввод цены для книги №" + i + " = ");
                     }
                 }
-                while (!hasLetters);
+                while (hasLetters);
                 BookShop.Add(TempBook);
             }
         }
@@ -47,7 +48,14 @@ namespace KVBook
         { 
             BookShop.OrderBy(r => r.Price).ThenBy(r => r.Author).ToArray();
         }
-
+        static public void SaveInFile()
+        {
+            using (StreamWriter sw = new StreamWriter("BookShelf.txt"))
+            {
+                foreach(Book B in BookShop)
+                sw.WriteLine(B.Author + ", " + B.Name + ", " + B.Price.ToString());
+            }
+        }
     
     }
     class Program
@@ -56,6 +64,8 @@ namespace KVBook
         {
             Librarium.Booking();
             Librarium.Sort();
+            Librarium.SaveInFile();
+
         }
     }
 }
