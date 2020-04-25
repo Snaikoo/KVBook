@@ -18,15 +18,16 @@ namespace KVBook
         static public List<Book> BookShop = new List<Book>();
         static public void Booking()
         {
-            Console.Write("Размер массива = ");
-            string tS = Console.ReadLine();
+            string tS;
             bool hasLetters;
             do
             {
+                Console.Write("Размер массива = ");
+                tS = Console.ReadLine();
                 hasLetters = tS.AsEnumerable().Any(ch => char.IsLetter(ch));
                 tS = tS.Replace(" ", "");
             }
-            while (hasLetters || tS == null);
+            while (hasLetters || tS == "");
                     
                         
             Size = Convert.ToInt32(tS);
@@ -36,20 +37,24 @@ namespace KVBook
                 Console.Write("Название книги №" + i + " = ");                
                 TempBook.Name = Console.ReadLine().ToString();
                 Console.Write("Автор книги №" + i + " = ");
-                TempBook.Author = Console.ReadLine().ToString();                
+                TempBook.Author = Console.ReadLine().ToString();
+                bool flag;
                 do
                 {
+                    flag = false;
                     Console.Write("Цена книги №" + i + " = ");
                     string t = Console.ReadLine();
                     hasLetters = t.AsEnumerable().Any(ch => char.IsLetter(ch));
-                    if (!hasLetters)
+                    t = t.Replace(" ", "");
+                    if (!hasLetters && t != "")
                         TempBook.Price = Convert.ToInt32(t);
                     else
                     {
                         Console.Write("Цена не должна содержать буквы. Только цифры. Повторите ввод цены для книги №" + i + " = ");
+                        flag = true;
                     }
                 }
-                while (hasLetters);
+                while (flag);
                 BookShop.Add(TempBook);
             }
         }
